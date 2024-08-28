@@ -1,2 +1,2 @@
 grade: 3
-- nice job!
+- the assignment did not exactly specify, but in Java the public class in a source file should always be named the same name as the base name of the source file, so your class should be named "HelloWorld", not "lab1". Indeed if you did have the word "public" in front of it (which you should), Java would refuse to compile it.
