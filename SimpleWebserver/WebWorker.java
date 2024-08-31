@@ -31,7 +31,7 @@ public class WebWorker implements Runnable
 {
 
 private Socket socket;
-String filepath;
+private String filepath;
 private String formattedDate;
 private String serverId = "edgarsServerId123";
 private String dateToken = "{{cs371date}}";
