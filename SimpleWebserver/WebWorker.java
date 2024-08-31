@@ -123,7 +123,7 @@ private void writeContent(OutputStream os) throws Exception
 {
    if(filepath != "/" ){
       System.err.println("Filepaht is not /");
-      BufferedReader reader = new BufferedReader(new FileReader(filepath));
+      BufferedReader reader = new BufferedReader(new FileReader("."+filepath));
       String line = reader.readLine();
       while( line != null ){
          os.write(line.getBytes());
