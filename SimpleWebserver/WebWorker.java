@@ -97,10 +97,15 @@ private void readHTTPRequest(InputStream is)
 **/
 private void writeHTTPHeader(OutputStream os, String contentType) throws Exception
 {
+
    Date d = new Date();
    DateFormat df = DateFormat.getDateTimeInstance();
    df.setTimeZone(TimeZone.getTimeZone("GMT"));
-   os.write("HTTP/1.1 200 OK\n".getBytes());
+   if( (new File("." + filepath)).exists() ){
+      os.write("HTTP/1.1 200 OK\n".getBytes());
+   } else {
+      os.write("HTTP/1.1 404 Not Found\n".getBytes());
+   }
    os.write("Date: ".getBytes());
    os.write((df.format(d)).getBytes());
    os.write("\n".getBytes());
