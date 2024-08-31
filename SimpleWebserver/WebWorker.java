@@ -80,11 +80,14 @@ private void readHTTPRequest(InputStream is)
       try {
          while (!r.ready()) Thread.sleep(1);
          line = r.readLine();
+         // Check if it is a GET request
          if(line.startsWith("GET")){
+            // file name will be index 2 after split
             filepath = line.split(" ")[1];
          }
          System.err.println("Request line: ("+line+")");
          if (line.length()==0) break;
+         // Prevent favicon.ico GET request from going through
          if (filepath=="\\favicon.ico") break;
       } catch (Exception e) {
          System.err.println("Request error: "+e);
@@ -105,11 +108,14 @@ private void writeHTTPHeader(OutputStream os, String contentType) throws Excepti
    Date d = new Date();
    DateFormat df = DateFormat.getDateTimeInstance();
    df.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+   // check if filepath exists. Return appropriate response code in header
    if( (new File("." + filepath)).exists() ){
       os.write("HTTP/1.1 200 OK\n".getBytes());
    } else {
       os.write("HTTP/1.1 404 Not Found\n".getBytes());
    }
+
    os.write("Date: ".getBytes());
    os.write((df.format(d)).getBytes());
    os.write("\n".getBytes());
@@ -130,21 +136,23 @@ private void writeHTTPHeader(OutputStream os, String contentType) throws Excepti
 **/
 private void writeContent(OutputStream os) throws Exception
 {
+   // local var line for temp String storage
    String line = "";
    try{
       BufferedReader reader = new BufferedReader(new FileReader("."+filepath));
      
       while( (line = reader.readLine()) != null ){
+         // find dateToken and replace with formatted date
          if( line.contains(dateToken) ) {
             String newDate = java.time.LocalDate.now().toString();
             line = line.replace(dateToken,newDate);
          }
 
+         // find server ID token and replace with server ID
          if( line.contains(serverIdToken) ) {
             line = line.replace(serverIdToken,serverId);
          }
          os.write(line.getBytes());
-         //line = reader.readLine();
       }
    }catch(FileNotFoundException exc){
       os.write("404 Not Found".getBytes());
