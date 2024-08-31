@@ -5,7 +5,7 @@
 </target>
 
 <target name="run" depends="compile">
-    <java classname="WebServer">
+    <java classname="WebServer"/>
 </target>
 
 <target name="clean">
@@ -13,3 +13,5 @@
         <fileset dir="." includes="*.class"/>
     </delete>
 </target>
+
+</project>
