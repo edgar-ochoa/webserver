@@ -1,7 +1,7 @@
 <project name="WebServer" default="run">
 
 <target name="compile">
-    <javac srcdir="." />
+    <javac srcdir=".\SimpleWebserver" />
 </target>
 
 <target name="run" depends="compile">
