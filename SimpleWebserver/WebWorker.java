@@ -30,11 +30,11 @@ import java.util.TimeZone;
 public class WebWorker implements Runnable
 {
 
-private Socket socket;
-private String filepath;
-private String serverId = "edgarsServerId123";
-private String dateToken = "{{cs371date}}";
-private String serverIdToken = "{{cs371server}}";
+private Socket socket; // used for socket connection handling
+private String filepath; // used to hold the GET filepath requested
+private String serverId = "edgarsServerId123"; // my server ID
+private String dateToken = "{{cs371date}}"; // token to replace in Strings
+private String serverIdToken = "{{cs371server}}"; // token to replace in Strings
 
 /**
 * Constructor: must have a valid open socket
@@ -82,7 +82,7 @@ private void readHTTPRequest(InputStream is)
          line = r.readLine();
          // Check if it is a GET request
          if(line.startsWith("GET")){
-            // file name will be index 2 after split
+            // file name will be index 1 after split
             filepath = line.split(" ")[1];
          }
          System.err.println("Request line: ("+line+")");
@@ -154,6 +154,9 @@ private void writeContent(OutputStream os) throws Exception
          }
          os.write(line.getBytes());
       }
+      // close bufferedReader
+      reader.close();
+      
    }catch(FileNotFoundException exc){
       os.write("404 Not Found".getBytes());
    }
