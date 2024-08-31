@@ -70,11 +70,15 @@ public void run()
 private void readHTTPRequest(InputStream is)
 {
    String line;
+   String filepath;
    BufferedReader r = new BufferedReader(new InputStreamReader(is));
    while (true) {
       try {
          while (!r.ready()) Thread.sleep(1);
          line = r.readLine();
+         if(line.startsWith("GET")){
+            filepath = line.split(" ")[1];
+         }
          System.err.println("Request line: ("+line+")");
          if (line.length()==0) break;
       } catch (Exception e) {
