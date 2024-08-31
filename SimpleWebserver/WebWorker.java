@@ -121,7 +121,7 @@ private void writeHTTPHeader(OutputStream os, String contentType) throws Excepti
 **/
 private void writeContent(OutputStream os) throws Exception
 {
-   if(filepath != "/" ){
+   try{
       System.err.println("Filepaht is not /");
       BufferedReader reader = new BufferedReader(new FileReader("."+filepath));
       String line = reader.readLine();
@@ -129,10 +129,8 @@ private void writeContent(OutputStream os) throws Exception
          os.write(line.getBytes());
          line = reader.readLine();
       }
-   }else{
-      os.write("<html><head></head><body>\n".getBytes());
-      os.write("<h3>My web server works!</h3>\n".getBytes());
-      os.write("</body></html>\n".getBytes());
+   }catch(FileNotFoundException exc){
+      os.write("404 Not Found".getBytes());
    }
 }
 
