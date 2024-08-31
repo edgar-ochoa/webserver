@@ -31,6 +31,7 @@ public class WebWorker implements Runnable
 {
 
 private Socket socket;
+String filepath;
 
 /**
 * Constructor: must have a valid open socket
@@ -70,7 +71,7 @@ public void run()
 private void readHTTPRequest(InputStream is)
 {
    String line;
-   String filepath;
+   
    BufferedReader r = new BufferedReader(new InputStreamReader(is));
    while (true) {
       try {
